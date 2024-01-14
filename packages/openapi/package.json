@@ -1,0 +1,48 @@
+{
+	"name": "openapi",
+	"version": "1.0.0",
+	"description": "Generates ts models, typed queries, zod object models and zodios api interface from the openapi specification",
+	"main": "./dist/esm/index.js",
+	"exports": {
+		"default": {
+			"default": "./dist/esm/index.js",
+			"types": "./dist/esm/index.d.ts"
+		},
+		"import": {
+			"types": "./dist/esm/index.d.ts",
+			"module": "./dist/esm/index.js"
+		},
+		"require": {
+			"types": "./dist/cjs/index.d.ts",
+			"module": "./dist/cjs/index.js"
+		}
+	},
+	"types": "./dist/esm/index.d.ts",
+	"type": "module",
+	"scripts": {
+		"prettier": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\" \"./*.ts\" \"./*.json\" --no-error-on-unmatched-pattern --log-level silent",
+		"lint": "tsc -p tsconfig.json && tsc -p tsconfig.cjs.json && npm run prettier",
+		"generate": "npx kubb generate --log-level info --config kubb.config.js ",
+		"build": "npm run generate && npm run lint"
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"@faker-js/faker": "^8.2.0",
+		"@tanstack/react-query": "^5.13.4",
+		"@zodios/core": "^10.9.6",
+		"@zodios/express": "^10.6.1",
+		"yaml": "^2.3.2",
+		"zod": "^3.22.4",
+		"zod-validation-error": "^2.1.0"
+	},
+	"devDependencies": {
+		"@kubb/cli": "^2.0.5",
+		"@kubb/core": "^2.0.5",
+		"@kubb/swagger-tanstack-query": "^2.0.5",
+		"@kubb/swagger-ts": "^2.0.5",
+		"@kubb/swagger-zod": "^2.0.5",
+		"@kubb/swagger-zodios": "^2.0.5",
+		"typescript": "^5.3.3"
+	}
+}

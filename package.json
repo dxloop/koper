@@ -1,0 +1,21 @@
+{
+	"name": "koper-stack",
+	"description": "Template for building a full-stack application with the contract first approach with openapi",
+	"version": "1.0.0",
+	"engines": {
+		"node": "18.x"
+	},
+ 	"scripts": {
+		"build": "npx turbo build",
+		"lint": "npx turbo lint",
+		"dev": "npx turbo dev",
+		"test": "npx turbo test"
+	},
+	"workspaces": [
+		"packages/*",
+		"apps/*"
+	],
+	"devDependencies": {
+		"turbo": "^1.11.2"
+	}
+}

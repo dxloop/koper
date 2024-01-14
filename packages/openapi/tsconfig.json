@@ -1,0 +1,20 @@
+{
+	"compilerOptions": {
+		"target": "ESNext",
+		"module": "NodeNext",
+		"rootDir": "src",
+		"moduleResolution": "NodeNext",
+
+		"declaration": true,
+		"outDir": "dist/esm",
+
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
+		"forceConsistentCasingInFileNames": true,
+		"resolveJsonModule": true,
+		"strict": true,
+		"noUncheckedIndexedAccess": true,
+		"skipLibCheck": true,
+	},
+	"include": ["src/**/*"]
+}

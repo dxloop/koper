@@ -1,0 +1,5 @@
+{
+	"include": ["src"],
+	"ext": "ts",
+	"exec": "npm run lint && npm run dev:start"
+}

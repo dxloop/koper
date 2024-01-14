@@ -1,0 +1,541 @@
+openapi: 3.0.0
+info:
+  title: Todo API
+  version: 1.0.0
+paths:
+  /users/@me:
+    get:
+      tags:
+        - User Resources
+      summary: Get the current user's information
+      description: Get the current user's information for the authenticated session
+      operationId: getSelfUser
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        "400":
+          $ref: "#/components/responses/InvalidRequest"
+        "401":
+          $ref: "#/components/responses/NotAuthenticated"
+        "409":
+          $ref: "#/components/responses/AlreadyExists"
+        "403":
+          $ref: "#/components/responses/MissingPermissions"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        "501":
+          $ref: "#/components/responses/NotImplemented"
+    put:
+      tags:
+        - User Resources
+      summary: Update the current user's information
+      description: Update the current user's information for the authenticated session
+      operationId: updateSelfUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: User information updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        "400":
+          $ref: "#/components/responses/InvalidRequest"
+        "401":
+          $ref: "#/components/responses/NotAuthenticated"
+        "409":
+          $ref: "#/components/responses/AlreadyExists"
+        "403":
+          $ref: "#/components/responses/MissingPermissions"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        "501":
+          $ref: "#/components/responses/NotImplemented"
+    delete:
+      tags:
+        - User Resources
+      summary: Delete the current user
+      description: Delete the current user for the authenticated session
+      operationId: deleteSelfUser
+      responses:
+        '204':
+          description: User deleted successfully
+        "400":
+          $ref: "#/components/responses/InvalidRequest"
+        "401":
+          $ref: "#/components/responses/NotAuthenticated"
+        "409":
+          $ref: "#/components/responses/AlreadyExists"
+        "403":
+          $ref: "#/components/responses/MissingPermissions"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        "501":
+          $ref: "#/components/responses/NotImplemented"
+
+  /users:
+    post:
+      tags:
+        - User Resources
+      summary: Register a new user
+      description: Register a new user with the provided information
+      operationId: registerUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRegistration'
+      responses:
+        '201':
+          description: User registered successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserWithJWT'
+        "400":
+          $ref: "#/components/responses/InvalidRequest"
+        "401":
+          $ref: "#/components/responses/NotAuthenticated"
+        "409":
+          $ref: "#/components/responses/AlreadyExists"
+        "403":
+          $ref: "#/components/responses/MissingPermissions"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        "501":
+          $ref: "#/components/responses/NotImplemented"
+  /users/{userId}/todos:
+    get:
+      tags:
+        - User Todo Resources
+      summary: Get paginated list of todos for a specific user
+      description: Get paginated list of todos for the authenticated user
+      operationId: getUserTodos
+      parameters:
+        - name: userId
+          in: path
+          description: ID of the user to retrieve todos for
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: limit
+          in: query
+          description: Number of todos to retrieve (default is 10)
+          schema:
+            type: integer
+            default: 10
+        - name: cursor
+          in: query
+          description: Cursor for pagination
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  todos:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Todo'
+                  nextCursorId:
+                    type: string
+                  previousCursorId:
+                    type: string
+        "400":
+          $ref: "#/components/responses/InvalidRequest"
+        "401":
+          $ref: "#/components/responses/NotAuthenticated"
+        "409":
+          $ref: "#/components/responses/AlreadyExists"
+        "403":
+          $ref: "#/components/responses/MissingPermissions"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        "501":
+          $ref: "#/components/responses/NotImplemented"
+    post:
+      tags:
+        - User Todo Resources
+      summary: Create a new todo for a specific user
+      description: Create a new todo for the authenticated user
+      operationId: createUserTodo
+      parameters:
+        - name: userId
+          in: path
+          description: ID of the user to create a todo for
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TodoInput'
+      responses:
+        '201':
+          description: Todo created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todo'
+        "400":
+          $ref: "#/components/responses/InvalidRequest"
+        "401":
+          $ref: "#/components/responses/NotAuthenticated"
+        "409":
+          $ref: "#/components/responses/AlreadyExists"
+        "403":
+          $ref: "#/components/responses/MissingPermissions"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        "501":
+          $ref: "#/components/responses/NotImplemented"
+  /users/{userId}/todos/{id}:
+    put:
+      tags:
+        - User Todo Resources
+      summary: Update a todo for a specific user by ID
+      description: Update a todo for the authenticated user
+      operationId: updateUserTodo
+      parameters:
+        - name: userId
+          in: path
+          description: ID of the user
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: id
+          in: path
+          description: ID of the todo to update
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TodoInput'
+      responses:
+        '200':
+          description: Todo updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todo'
+        '400':
+          description: Bad request, validation error
+        '404':
+          description: Todo not found
+    get:
+      tags:
+        - User Todo Resources
+      summary: Get a single todo for a specific user by ID
+      description: Get a single todo for the authenticated user
+      operationId: getUserTodo
+      parameters:
+        - name: userId
+          in: path
+          description: ID of the user
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: id
+          in: path
+          description: ID of the todo to retrieve
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todo'
+        "400":
+          $ref: "#/components/responses/InvalidRequest"
+        "401":
+          $ref: "#/components/responses/NotAuthenticated"
+        "409":
+          $ref: "#/components/responses/AlreadyExists"
+        "403":
+          $ref: "#/components/responses/MissingPermissions"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        "501":
+          $ref: "#/components/responses/NotImplemented"
+    delete:
+      tags:
+        - User Todo Resources
+      summary: Delete a todo for a specific user by ID
+      description: Delete a todo for the authenticated user
+      operationId: deleteUserTodo
+      parameters:
+        - name: userId
+          in: path
+          description: ID of the user
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: id
+          in: path
+          description: ID of the todo to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: Todo deleted successfully
+        "400":
+          $ref: "#/components/responses/InvalidRequest"
+        "401":
+          $ref: "#/components/responses/NotAuthenticated"
+        "409":
+          $ref: "#/components/responses/AlreadyExists"
+        "403":
+          $ref: "#/components/responses/MissingPermissions"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        "501":
+          $ref: "#/components/responses/NotImplemented"
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: number
+          example: 12928
+          readOnly: true
+        name:
+          type: string
+          example: John Doe
+          maxLength: 50
+        email:
+          type: string
+          format: email
+      required:
+        - id
+        - name
+        - email
+
+    UserRegistration:
+      allOf:
+        - $ref: "#/components/schemas/User"
+      properties:
+        password:
+          type: string
+          example: password123
+          minLength: 8
+      required:
+        - password
+
+    UserLogin:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          example: password123
+          minLength: 8
+      required:
+        - username
+        - password
+        - email
+
+    UserWithJWT:
+      allOf:
+        - $ref: "#/components/schemas/User"
+      properties:
+        token:
+          type: string
+          description: JWT token for the user to use for sending requests
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.djwidj92e2.djwidj92e2
+          readOnly: true
+        tokenType:
+          type: string
+          description: The type of the jwt token
+          example: Bearer
+          readOnly: true
+      required:
+        - token
+        - tokenType
+    TodoInput:
+      type: object
+      properties:
+        title:
+          type: string
+          example: Homework
+          maxLength: 100
+        description:
+          type: string
+          example: Do math homework
+          maxLength: 500
+        status:
+          type: string
+          example: DONE
+          enum: [DONE, PENDING, IN_PROGRESS]
+        dueDate:
+          type: string
+          example: 2020-12-31
+          format: date
+        userId:
+          type: string
+          example: 12928
+          format: number
+      required:
+        - title
+        - status
+        - userId
+
+    Todo:
+      allOf:
+        - $ref: '#/components/schemas/TodoInput'
+        - type: object
+          properties:
+            id:
+              format: number
+              type: string
+              readOnly: true
+          required:
+            - id
+    ServiceError:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Something went wrong
+        code:
+          type: string
+          $ref: '#/components/schemas/ErrorCodes'
+          example: INTERNAL_SERVER_ERROR
+        status:
+          type: integer
+          example: 500
+      required:
+        - message
+        - code
+        - status
+
+    ErrorCodes:
+      type: string
+      enum:
+        - INTERNAL_SERVER_ERROR
+        - BAD_REQUEST
+        - UNAUTHORIZED
+        - NOT_FOUND
+        - FORBIDDEN
+        - CONFLICT
+        - UNPROCESSABLE_ENTITY
+        - TOO_MANY_REQUESTS
+        - SERVICE_UNAVAILABLE
+        - NETWORK_ERROR
+        - CANCEL
+        - UNKNOWN
+        - INVALID_ARGUMENT
+        - NOT_FOUND
+        - ALREADY_EXISTS
+        - PERMISSION_DENIED
+        - FAILED_PRECONDITION
+        - UNIMPLEMENTED
+ # Responses - WebService Error Exceptions
+  responses:
+    NotFound:
+      description: Resource has not been found.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ServiceError"
+    
+    AlreadyExists:
+      description: Resource already exists.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ServiceError"
+
+    NotAuthenticated:
+      description: User is not authenticated.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ServiceError"
+
+    MissingPermissions:
+      description: User lacks necessary permissions to access this resource.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ServiceError"
+
+    InvalidRequest:
+      description: Body or Query parameters are invalid.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ServiceError"
+
+    NotImplemented:
+      description: Routes or methods are not implemented.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ServiceError"
+
+    PersistenceError:
+      description: Error occurred while persisting data.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ServiceError"
+
+    InternalServerError:
+      description: Service returned Internal Server Error.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ServiceError"

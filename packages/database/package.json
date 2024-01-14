@@ -1,0 +1,23 @@
+{
+	"name": "database",
+	"version": "1.0.0",
+	"description": "All components related to the database such as prisma models, prisma client etc.",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"type": "module",
+	"scripts": {
+		"generate": "npx prisma generate",
+		"migrate": "npx prisma migrate dev --name \"$(date +%s)\" --preview-feature",
+		"push": "npx prisma db push --skip-generate",
+		"lint": "tsc -p tsconfig.json",
+		"build": "npm run generate && npm run lint"
+	},
+	"author": "",
+	"license": "Apache-2.0",
+	"dependencies": {
+		"@prisma/client": "^5.7.0"
+	},
+	"devDependencies": {
+		"prisma": "^5.7.0"
+	}
+}
