@@ -11,15 +11,15 @@ If you are interested in a deep-dive of the usage possibilities check-out follow
 
 ## Tech Stack Overview
 
-- **Kubb**: A generator for OpenAPI that produces TypeScript, React-Query, Zod, Zodios, Faker.js, MSW, and Axios code.
+- **[Kubb](https://www.kubb.dev/)**: A generator for OpenAPI that produces TypeScript, React-Query, Zod, Zodios, Faker.js, MSW, and Axios code.
 
-- **OpenAPI**: The OpenAPI Specification provides a formal standard for describing HTTP APIs, serving as the foundation for the entire development process.
+- **[OpenAPI](https://swagger.io/specification/)**: The OpenAPI Specification provides a formal standard for describing HTTP APIs, serving as the foundation for the entire development process.
 
-- **Prisma**: A next-generation Node.js and TypeScript ORM, providing a powerful and type-safe database access layer.
+- **[Prisma](https://www.prisma.io/)**: A next-generation Node.js and TypeScript ORM, providing a powerful and type-safe database access layer.
 
-- **Express.js**: A fast, unopinionated, minimalist web framework for Node.js, facilitating the creation of robust and scalable server-side applications.
+- **[Express.js](https://expressjs.com/)**: A fast, unopinionated, minimalist web framework for Node.js, facilitating the creation of robust and scalable server-side applications.
 
-- **React**: A JavaScript library for building user interfaces, offering a dynamic and efficient way to create engaging web applications.
+- **[React](https://react.dev/)**: A JavaScript library for building user interfaces, offering a dynamic and efficient way to create engaging web applications.
 
 ## Contract-First Development
 
