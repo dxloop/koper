@@ -1,5 +1,5 @@
 
-# KOPER - Contract-First Development with Kubb, OpenAPI, Prisma, Express.js, and React
+# KOPER - Contract-First Techstack
 **KOPER** is a modern tech stack designed for creating Full-Stack Applications with the Contract-First Approach, leveraging the power of Kubb, OpenAPI, Prisma, Express.js, and React. This stack streamlines the development process by utilizing the OpenAPI file as the single source of truth, enabling the automatic generation of various resources and reducing manual labor. By using this approach you can focus on the business logic.
 
 > [!WARNING]
