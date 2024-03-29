@@ -3,9 +3,9 @@
 **KOPER** is a modern tech stack designed for creating Full-Stack Applications with the Contract-First Approach, leveraging the power of Kubb, OpenAPI, Prisma, Express.js, and React. This stack streamlines the development process by utilizing the OpenAPI file as the single source of truth, enabling the automatic generation of various resources and reducing manual labor. By using this approach you can focus on the business logic.
 
 > [!WARNING]
-> Frontend and Medium Article are still in progress.
+> The project is still work in progress. Following components/features are not yet implemented: Backend functions, Frontend, MSW Mock Server, Unit & E2E Tests, CI/CD Pipeline, Docker, and Deployment.
 
-If you are interested in a deep-dive of the usage possibilities check-out following [article]().
+If you are interested in a deep-dive of the usage possibilities: check-out following [article](https://medium.com/@dxloop/contract-first-approach-with-node-js-and-openapi-for-rest-services-d2283a7ffd9d).
 
 ![](/.docs/images/KOPER.png)
 
