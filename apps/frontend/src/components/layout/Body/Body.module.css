@@ -1,0 +1,8 @@
+.body  {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: no-wrap;
+    height: 100%;
+    flex-grow: 0;
+    gap: var(--mantine-spacing-xs);
+}

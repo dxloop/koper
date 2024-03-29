@@ -11,8 +11,6 @@ const configSchema = z.object({
 	PEPPER: z.string(),
 	SALT_ROUNDS: stringToNumberSchema,
 	JWT_EXPIRES_IN: z.string(),
-	RATE_LIMIT_WINDOW_MS: stringToNumberSchema,
-	RATE_LIMIT_MAX_REQUESTS: stringToNumberSchema
 })
 
 export default configSchema

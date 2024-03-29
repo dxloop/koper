@@ -38,7 +38,7 @@ paths:
       description: Update the current user's information for the authenticated session
       operationId: updateSelfUser
       requestBody:
-        required: true
+        description: User information to update
         content:
           application/json:
             schema:
@@ -88,7 +88,39 @@ paths:
         "501":
           $ref: "#/components/responses/NotImplemented"
 
-  /users:
+  /users/login:
+    post:
+      tags:
+        - User Resources
+      summary: Login with user credentials
+      description: Login with user credentials to get a JWT token
+      operationId: loginUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserLogin'
+      responses:
+        '200':
+          description: User logged in successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserWithJWT'
+        "400":
+          $ref: "#/components/responses/InvalidRequest"
+        "401":
+          $ref: "#/components/responses/NotAuthenticated"
+        "403":
+          $ref: "#/components/responses/MissingPermissions"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+        "501":
+          $ref: "#/components/responses/NotImplemented"
+  /users/register:
     post:
       tags:
         - User Resources
@@ -477,7 +509,6 @@ components:
         - CANCEL
         - UNKNOWN
         - INVALID_ARGUMENT
-        - NOT_FOUND
         - ALREADY_EXISTS
         - PERMISSION_DENIED
         - FAILED_PRECONDITION

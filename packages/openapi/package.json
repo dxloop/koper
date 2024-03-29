@@ -17,7 +17,7 @@
 			"module": "./dist/cjs/index.js"
 		}
 	},
-	"types": "./dist/esm/index.d.ts",
+	"types": "./dist/cjs/index.d.ts",
 	"type": "module",
 	"scripts": {
 		"prettier": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\" \"./*.ts\" \"./*.json\" --no-error-on-unmatched-pattern --log-level silent",
@@ -25,24 +25,27 @@
 		"generate": "npx kubb generate --log-level info --config kubb.config.js ",
 		"build": "npm run generate && npm run lint"
 	},
-	"author": "",
-	"license": "ISC",
+	"author": "dxloop",
+	"license": "MIT",
 	"dependencies": {
-		"@faker-js/faker": "^8.2.0",
-		"@tanstack/react-query": "^5.13.4",
+		"@faker-js/faker": "^8.4.1",
+		"@tanstack/query-core": "^5.28.9",
+		"@tanstack/react-query": "^5.28.9",
 		"@zodios/core": "^10.9.6",
 		"@zodios/express": "^10.6.1",
-		"yaml": "^2.3.2",
+		"yaml": "^2.4.1",
 		"zod": "^3.22.4",
-		"zod-validation-error": "^2.1.0"
+		"zod-validation-error": "^3.0.3"
 	},
 	"devDependencies": {
-		"@kubb/cli": "^2.0.5",
-		"@kubb/core": "^2.0.5",
-		"@kubb/swagger-tanstack-query": "^2.0.5",
-		"@kubb/swagger-ts": "^2.0.5",
-		"@kubb/swagger-zod": "^2.0.5",
-		"@kubb/swagger-zodios": "^2.0.5",
-		"typescript": "^5.3.3"
+		"@kubb/cli": "^2.11.1",
+		"@kubb/core": "^2.11.1",
+		"@kubb/swagger-tanstack-query": "^2.11.1",
+		"@kubb/swagger-ts": "^2.11.1",
+		"@kubb/swagger-zod": "^2.11.1",
+		"@kubb/swagger-zodios": "^2.11.1",
+		"prettier": "^3.2.5",
+		"tsup": "^8.0.2",
+		"typescript": "^5.4.3"
 	}
 }

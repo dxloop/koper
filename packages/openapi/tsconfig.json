@@ -1,9 +1,9 @@
 {
 	"compilerOptions": {
 		"target": "ESNext",
-		"module": "NodeNext",
+		"module": "ESNext",
 		"rootDir": "src",
-		"moduleResolution": "NodeNext",
+		"moduleResolution": "Node",
 
 		"declaration": true,
 		"outDir": "dist/esm",
@@ -14,7 +14,7 @@
 		"resolveJsonModule": true,
 		"strict": true,
 		"noUncheckedIndexedAccess": true,
-		"skipLibCheck": true,
+		"skipLibCheck": true
 	},
 	"include": ["src/**/*"]
 }

@@ -11,7 +11,7 @@ import { generateToken } from "../../auth/jwt.js"
  * @param req - The Express request object.
  * @param res - The Express response object.
  */
-const registerUser: Handler<"post", "/users"> = async (req, res) => {
+const registerUser: Handler<"post", "/users/register"> = async (req, res) => {
     // Check if user with email already exists
 
     // Hash Password

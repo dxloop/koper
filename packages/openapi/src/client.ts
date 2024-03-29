@@ -1,6 +1,7 @@
 import axios from "axios"
 
 import type { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios"
+import { ServiceError } from "./generated/swagger-ts/ServiceError.js"
 
 export type RequestConfig<TVariables = unknown> = {
 	method: "get" | "put" | "patch" | "post" | "delete"
@@ -24,7 +25,7 @@ export const axiosInstance = axios.create({
 	headers: "{}" ? JSON.parse("{}") : {}
 })
 
-export const axiosClient = async <TData, TError = unknown, TVariables = unknown>(config: RequestConfig<TVariables>): Promise<ResponseConfig<TData>> => {
+export const axiosClient = async <TData, TError = ServiceError, TVariables = unknown>(config: RequestConfig<TVariables>): Promise<ResponseConfig<TData>> => {
 	// Set token, if on browser
 	if (typeof window !== "undefined" && typeof window.document !== "undefined") {
 		const token = localStorage.getItem("token")

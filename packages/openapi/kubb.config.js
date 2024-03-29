@@ -10,7 +10,7 @@ export default defineConfig({
 	root: ".",
 	hooks: {
 		done: [
-			"node ./fixImport.js", // Fix relative import paths,
+			"node fixImport.js",
 			"node ./createJsonSpec.js" // Create json spec file
 		]
 	},
@@ -23,34 +23,34 @@ export default defineConfig({
 		write: true
 	},
 	plugins: [
-        // Contains swagger documentation
+		// Contains swagger documentation
 		createSwagger({
 			output: { path: "swagger" },
 			validate: true
 		}),
-        // Typed http client
+		// Typed http client
 		createSwaggerClient({
 			output: { path: "swagger-client" },
-            // Use client to inject bearer token
+			// Use client to inject bearer token
 			client: { importPath: "../../client.js" },
 			dataReturnType: "data"
 		}),
-        // Typed resource models with ts-docs
+		// Typed resource models with ts-docs
 		createSwaggerTs({
 			output: { path: "swagger-ts" }
 		}),
-        // Validation with zod
+		// Validation with zod
 		createSwaggerZod({
 			output: { path: "zod" }
 		}),
-        // Validate responses on express server
+		// Validate responses on express server
 		createSwaggerZodios({
 			output: { path: "zodios" }
 		}),
-        // Typed react-query hooks
+		// Typed react-query hooks
 		createSwaggerTanstackQuery({
 			output: { path: "tanstack-query" },
-            // Use client to inject bearer token
+			// Use client to inject bearer token
 			client: { importPath: "../../client.js" },
 			dataReturnType: "data"
 		})
