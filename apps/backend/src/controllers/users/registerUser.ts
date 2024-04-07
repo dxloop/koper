@@ -1,9 +1,11 @@
-import { restErrorCodes } from "openapi"
+import { restActions, restResources } from "openapi"
 import { hash } from "bcrypt"
 import { PEPPER, SALT_ROUNDS } from "../../config/config.js"
 import Handler from "../../zodios/requestHandler.js"
 import { createUser } from "../../repositories/users/createUser.js"
 import { generateToken } from "../../auth/jwt.js"
+import { rejectWithError } from "../../shared/errors/rejectWithError.js"
+import { internalError } from "../../shared/errors/internalError.js"
 
 /**
  * Register a new user.
@@ -20,31 +22,25 @@ const registerUser: Handler<"post", "/users/register"> = async (req, res) => {
     });
 
     if (hashedPassword === null) {
-        return res.status(501).send({
-            status: 501,
-            message: "Could not hash password",
-            code: restErrorCodes.INTERNAL_SERVER_ERROR
-        });
+        return rejectWithError(res, internalError(
+            restActions.Create, restResources.User, "Could not hash password"
+        ))
     }
 
     // Create User
     const createdUser = await createUser(req.body).catch(() => null);
     if (createdUser === null) {
-        return res.status(501).send({
-            status: 501,
-            message: "Could not create user",
-            code: restErrorCodes.INTERNAL_SERVER_ERROR
-        });
+        return rejectWithError(res, internalError(
+            restActions.Create, restResources.User, "Could not create user"
+        ))
     }
 
     // Generate JWT Token
     const accessToken = await generateToken({ id: createdUser.id.toString() }).catch(() => null);
     if (accessToken === null) {
-        return res.status(501).send({
-            status: 501,
-            message: "Could not generate access token",
-            code: restErrorCodes.INTERNAL_SERVER_ERROR
-        });
+        return rejectWithError(res, internalError(
+            restActions.Create, restResources.User, "Could not generate token"
+        ))
     }
 
     return res.status(201).send({
