@@ -478,12 +478,15 @@ components:
     ServiceError:
       type: object
       properties:
-        message:
+        details:
           type: string
           example: Something went wrong
+        message:
+          type: string
+          example: Todo could not be created
         code:
           type: string
-          $ref: '#/components/schemas/ErrorCodes'
+          $ref: '#/components/schemas/RestErrorCodes'
           example: INTERNAL_SERVER_ERROR
         status:
           type: integer
@@ -492,13 +495,14 @@ components:
         - message
         - code
         - status
-
-    ErrorCodes:
+    
+    # Error Codes - The error codes for the service
+    RestErrorCodes:
       type: string
       enum:
         - INTERNAL_SERVER_ERROR
         - BAD_REQUEST
-        - UNAUTHORIZED
+        - NOT_AUTHENTICATED
         - NOT_FOUND
         - FORBIDDEN
         - CONFLICT
@@ -513,6 +517,22 @@ components:
         - PERMISSION_DENIED
         - FAILED_PRECONDITION
         - UNIMPLEMENTED
+    
+    # Resources - The name of the resources
+    RestResources:
+      type: string
+      enum:
+        - User
+        - Todo
+    # Actions - The actions on the resources
+    RestActions:
+      type: string
+      enum:
+        - Create
+        - Fetch
+        - Update
+        - Delete
+
  # Responses - WebService Error Exceptions
   responses:
     NotFound:

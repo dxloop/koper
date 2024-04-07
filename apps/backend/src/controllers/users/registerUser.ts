@@ -1,4 +1,4 @@
-import { errorCodes } from "openapi"
+import { restErrorCodes } from "openapi"
 import { hash } from "bcrypt"
 import { PEPPER, SALT_ROUNDS } from "../../config/config.js"
 import Handler from "../../zodios/requestHandler.js"
@@ -23,7 +23,7 @@ const registerUser: Handler<"post", "/users/register"> = async (req, res) => {
         return res.status(501).send({
             status: 501,
             message: "Could not hash password",
-            code: errorCodes.INTERNAL_SERVER_ERROR
+            code: restErrorCodes.INTERNAL_SERVER_ERROR
         });
     }
 
@@ -33,7 +33,7 @@ const registerUser: Handler<"post", "/users/register"> = async (req, res) => {
         return res.status(501).send({
             status: 501,
             message: "Could not create user",
-            code: errorCodes.INTERNAL_SERVER_ERROR
+            code: restErrorCodes.INTERNAL_SERVER_ERROR
         });
     }
 
@@ -43,7 +43,7 @@ const registerUser: Handler<"post", "/users/register"> = async (req, res) => {
         return res.status(501).send({
             status: 501,
             message: "Could not generate access token",
-            code: errorCodes.INTERNAL_SERVER_ERROR
+            code: restErrorCodes.INTERNAL_SERVER_ERROR
         });
     }
 

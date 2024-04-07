@@ -1,6 +1,17 @@
+import { HttpStatusCode } from "axios";
+import { RestResources, ServiceError, restErrorCodes } from "openapi";
+
 /**
- * Error thrown when the body of a request is invalid with status code 400.
+ * The error message for an invalid body
+ * @param resource - the resource that caused the error
+ * @param details - additional details about the error
+ * @returns a ServiceError with status code 400
  */
-export function invalidBody() {
-    throw new Error("Function not implemented.");
+export function invalidBody(resource: RestResources, details?: string): ServiceError {
+    return {
+        status: HttpStatusCode.BadRequest,
+        code: restErrorCodes.BAD_REQUEST,
+        message: `Invalid body for ${resource}`,
+        details
+    }
 }
