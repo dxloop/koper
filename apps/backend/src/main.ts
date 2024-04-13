@@ -8,6 +8,7 @@ import { PORT } from "./config/config.js"
 import { zodiosApiInterface, openapiSpec } from "openapi"
 import context from "./auth/userContext.js"
 import userMiddleware from "./auth/userMiddelware.js"
+import registerUser from "./controllers/users/registerUser.js"
 
 // Load the api interface from the generated file
 const app = context.app(zodiosApiInterface, {
@@ -26,5 +27,8 @@ app.use("/docs", swaggerUi.serve, swaggerUi.setup(openapiSpec))
 
 
 app.use(userMiddleware)
+
+// Temporarily register controllers
+app.post("/users/register", registerUser);
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`))
