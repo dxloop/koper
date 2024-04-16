@@ -1,6 +1,5 @@
-import { ServiceError } from "openapi";
-import { Response } from "express";
-
+import { ServiceError } from "openapi"
+import { Response } from "express"
 
 // @TODO Stricter type check, which checks if response has ServiceError as error return type
 /**
@@ -10,5 +9,5 @@ import { Response } from "express";
  * @returns a promise once the response has been sent
  */
 export function rejectWithError(res: Response, error: ServiceError) {
-    return res.status(error.status).send(error)
+	return res.status(error.status).send(error)
 }

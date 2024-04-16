@@ -229,7 +229,7 @@ paths:
             content:
                application/json:
                   schema:
-                     $ref: "#/components/schemas/TodoInput"
+                     $ref: "#/components/schemas/TodoData"
          responses:
             "201":
                description: Todo created successfully
@@ -278,7 +278,7 @@ paths:
             content:
                application/json:
                   schema:
-                     $ref: "#/components/schemas/TodoInput"
+                     $ref: "#/components/schemas/TodoData"
          responses:
             "200":
                description: Todo updated successfully
@@ -389,7 +389,7 @@ components:
       User:
          type: object
          allOf:
-           - $ref: "#/components/schemas/BaseUser"
+            - $ref: "#/components/schemas/BaseUser"
          properties:
             id:
                type: string
@@ -441,8 +441,8 @@ components:
          required:
             - token
             - tokenType
-            
-      TodoInput:
+
+      TodoData:
          type: object
          properties:
             title:
@@ -472,7 +472,7 @@ components:
 
       Todo:
          allOf:
-            - $ref: "#/components/schemas/TodoInput"
+            - $ref: "#/components/schemas/TodoData"
             - type: object
               properties:
                  id:

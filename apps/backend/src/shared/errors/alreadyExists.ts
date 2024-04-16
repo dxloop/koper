@@ -1,5 +1,5 @@
-import { HttpStatusCode } from "axios";
-import { RestResources, ServiceError, restErrorCodes } from "openapi";
+import { HttpStatusCode } from "axios"
+import { RestResources, ServiceError, restErrorCodes } from "openapi"
 
 /**
  * Creates a WebServiceException with status code 409
@@ -8,10 +8,10 @@ import { RestResources, ServiceError, restErrorCodes } from "openapi";
  * @returns a ServiceError with status code 409
  */
 export function alreadyExists(resource: RestResources, details?: string): ServiceError {
-    return {
-        status: HttpStatusCode.Conflict,
-        code: restErrorCodes.ALREADY_EXISTS,
-        message: `The ${resource} already exists`,
-        details
-    }
+	return {
+		status: HttpStatusCode.Conflict,
+		code: restErrorCodes.ALREADY_EXISTS,
+		message: `The ${resource} already exists`,
+		details
+	}
 }
