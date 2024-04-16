@@ -10,7 +10,7 @@ const configSchema = z.object({
 	JWT_SECRET_KEY: z.string(),
 	PEPPER: z.string(),
 	SALT_ROUNDS: stringToNumberSchema,
-	JWT_EXPIRES_IN: z.string(),
+	JWT_EXPIRES_IN: z.string()
 })
 
 export default configSchema

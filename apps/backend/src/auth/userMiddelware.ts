@@ -16,11 +16,13 @@ const getUserToken = async (req: WithZodiosContext<Request, typeof contextSchema
 	const token = authorization.split(" ")[1]
 	if (token === undefined) return null
 
-	return decodeAndVerifyToken(token).then((result) => {
-		return result
-	}).catch(() => {
-		return null
-	});
+	return decodeAndVerifyToken(token)
+		.then((result) => {
+			return result
+		})
+		.catch(() => {
+			return null
+		})
 }
 
 /**
@@ -35,11 +37,14 @@ const getUserToken = async (req: WithZodiosContext<Request, typeof contextSchema
  */
 const userMiddleware: ZodiosRouterContextRequestHandler<typeof contextSchema> = async (req, res, next) => {
 	const userToken = await getUserToken(req)
-	contextSchema.parseAsync({ user: userToken !== null ? userToken.payload : null }).then((result) => {
-        req.user = result.user
-    }).catch((error) => {
-        res.status(401).json({ error: error.message })
-    })
+	contextSchema
+		.parseAsync({ user: userToken !== null ? userToken.payload : null })
+		.then((result) => {
+			req.user = result.user
+		})
+		.catch((error) => {
+			res.status(401).json({ error: error.message })
+		})
 
 	next() // Proceed to the next request
 }
