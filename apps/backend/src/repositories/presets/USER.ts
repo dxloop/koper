@@ -1,4 +1,4 @@
-import { BaseUser, User} from "openapi";
+import { BaseUser, User } from "openapi";
 
 
 /**
@@ -26,3 +26,18 @@ export const USER = {
  * The type of the full user based on the selected properties
  */
 export type USER_TYPE = Pick<User, keyof typeof USER>;
+
+
+/**
+ * The properties to select for the full user
+ */
+export const FULL_USER = {
+    ...USER,
+    password: true,
+} as Record<keyof User | "password", boolean>;
+
+
+/**
+ * The type of the full user based on the selected properties
+ */
+export type FULL_USER_TYPE = Pick<User & { password: string }, keyof typeof FULL_USER>;
