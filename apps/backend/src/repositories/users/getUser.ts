@@ -10,7 +10,7 @@ export type GetUser = PromiseType<ReturnType<(typeof getUserWithId | typeof getU
  * @param userId - The id of the user
  * @returns The user
  */
-export async function getUserWithId(userId: string) {
+export async function getUserWithId(userId: string | bigint) {
     return await prisma.user.findUnique({
         select: USER,
         where: {
