@@ -5,7 +5,7 @@ import prisma from "../prisma.js"
  * @param userId - The id of the user
  * @returns The deleted user
  */
-export async function deleteUser(userId: string | bigint) {
+export async function deleteUserWithId(userId: string | bigint) {
     return await prisma.user.delete({
         where: {
             id: BigInt(userId)
