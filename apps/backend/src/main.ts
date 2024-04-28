@@ -11,6 +11,8 @@ import userMiddleware from "./auth/userMiddelware.js"
 import registerUser from "./controllers/users/registerUser.js"
 import getSelf from "./controllers/users/getSelf.js"
 import updateSelf from "./controllers/users/updateSelf.js"
+import deleteSelf from "./controllers/users/deleteSelf.js"
+import authenticateUser from "./controllers/users/authenticateUser.js"
 
 // Load the api interface from the generated file
 const app = context.app(zodiosApiInterface, {
@@ -30,7 +32,9 @@ app.use(userMiddleware)
 // Temporarily register controllers
 app.get("/users/@me", getSelf)
 app.post("/users/register", registerUser)
+app.post("/users/login", authenticateUser)
 app.put("/users/@me", updateSelf)
+app.delete("/users/@me", deleteSelf)
 
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`))
