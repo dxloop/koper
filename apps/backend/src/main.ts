@@ -30,9 +30,9 @@ app.use("/docs", swaggerUi.serve, swaggerUi.setup(openapiSpec))
 app.use(userMiddleware)
 
 // Temporarily register controllers
-app.get("/users/@me", getSelf)
 app.post("/users/register", registerUser)
 app.post("/users/login", authenticateUser)
+app.get("/users/@me", getSelf)
 app.put("/users/@me", updateSelf)
 app.delete("/users/@me", deleteSelf)
 

@@ -16,7 +16,7 @@ import { internalError } from "../../shared/errors/internalError.js";
  * @param res - The Express response object.
  */
 const updateSelf: Handler<"put", "/users/@me"> = async (req, res) => {
-    if (req.user === null) return rejectWithError(res, notAuthenticated());
+    if (!req.user) return rejectWithError(res, notAuthenticated());
 
     const userId = req.user.id;
 

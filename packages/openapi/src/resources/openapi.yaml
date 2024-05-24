@@ -2,6 +2,11 @@ openapi: 3.0.0
 info:
    title: Todo API
    version: 1.0.0
+security:
+  - jwt: []
+servers:
+  - url: http://localhost:3000/
+    description: Local dev server
 paths:
    /users/@me:
       get:
@@ -401,7 +406,7 @@ components:
 
       UserRegistration:
          allOf:
-            - $ref: "#/components/schemas/User"
+            - $ref: "#/components/schemas/BaseUser"
          properties:
             password:
                type: string
@@ -596,3 +601,4 @@ components:
             application/json:
                schema:
                   $ref: "#/components/schemas/ServiceError"
+                  ## @TODO Fix token lock not appearing

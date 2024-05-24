@@ -41,6 +41,11 @@ const userMiddleware: ZodiosRouterContextRequestHandler<typeof contextSchema> = 
 		.parseAsync({ user: userToken !== null ? userToken.payload : null })
 		.then((result) => {
 			req.user = result.user
+			
+			// If the user is not authenticated, set the user to null
+			if (!req.user?.id) {
+				req.user = null
+			}
 		})
 		.catch((error) => {
 			res.status(401).json({ error: error.message })
