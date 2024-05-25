@@ -6,6 +6,9 @@ import { createUser } from "../../repositories/users/createUser.js"
 import { generateToken } from "../../auth/jwt.js"
 import { rejectWithError } from "../../shared/errors/rejectWithError.js"
 import { internalError } from "../../shared/errors/internalError.js"
+import { transformUser } from "../../transformers/user.js"
+import { getUserWithEmail } from "../../repositories/users/getUser.js"
+import { alreadyExists } from "../../shared/errors/alreadyExists.js"
 
 /**
  * Register a new user.
@@ -15,6 +18,10 @@ import { internalError } from "../../shared/errors/internalError.js"
  */
 const registerUser: Handler<"post", "/users/register"> = async (req, res) => {
 	// Check if user with email already exists
+	const userExists = await getUserWithEmail(req.body.email).catch(() => null)
+	if (userExists) {
+		return rejectWithError(res, alreadyExists(restResources.User))
+	}
 
 	// Hash Password
 	const hashedPassword = await hash(req.body.password + PEPPER, SALT_ROUNDS).catch(() => {
@@ -26,7 +33,7 @@ const registerUser: Handler<"post", "/users/register"> = async (req, res) => {
 	}
 
 	// Create User
-	const createdUser = await createUser(req.body).catch(() => null)
+	const createdUser = await createUser({ ...req.body, password: hashedPassword }).catch(() => null)
 	if (createdUser === null) {
 		return rejectWithError(res, internalError(restActions.Create, restResources.User, "Could not create user"))
 	}
@@ -38,9 +45,7 @@ const registerUser: Handler<"post", "/users/register"> = async (req, res) => {
 	}
 
 	return res.status(201).send({
-		id: createdUser.id.toString(),
-		name: createdUser.name || "",
-		email: createdUser.email,
+		...transformUser(createdUser),
 		token: accessToken,
 		tokenType: "Bearer"
 	})

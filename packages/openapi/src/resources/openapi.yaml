@@ -2,6 +2,9 @@ openapi: 3.0.0
 info:
    title: Todo API
    version: 1.0.0
+servers:
+  - url: http://localhost:3000/
+    description: Local dev server
 paths:
    /users/@me:
       get:
@@ -42,7 +45,7 @@ paths:
             content:
                application/json:
                   schema:
-                     $ref: "#/components/schemas/User"
+                     $ref: "#/components/schemas/UserUpdate"
          responses:
             "200":
                description: User information updated successfully
@@ -378,11 +381,12 @@ components:
          properties:
             name:
                type: string
-               example: John Doe
                maxLength: 50
+               example: John Doe
             email:
                type: string
                format: email
+               example: john@doe.com
          required:
             - name
             - email
@@ -398,10 +402,27 @@ components:
                readOnly: true
          required:
             - id
+      UserUpdate:
+         type: object
+         allOf:
+            - $ref: "#/components/schemas/BaseUser"
+         properties:
+            id:
+               type: string
+               format: number
+               example: 12928
+            password:
+               type: string
+               example: password123
+               minLength: 8
+         required:
+            - id
+            - password
 
       UserRegistration:
+         type: object
          allOf:
-            - $ref: "#/components/schemas/User"
+            - $ref: "#/components/schemas/BaseUser"
          properties:
             password:
                type: string
@@ -596,3 +617,13 @@ components:
             application/json:
                schema:
                   $ref: "#/components/schemas/ServiceError"
+   
+   # Schemes defining the format of the authentication
+   securitySchemes:
+      jwt:
+         type: http
+         scheme: bearer
+         bearerFormat: JWT
+         description: JWT token for authentication
+security:
+  - jwt: []

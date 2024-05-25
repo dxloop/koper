@@ -26,6 +26,15 @@ const getUserToken = async (req: WithZodiosContext<Request, typeof contextSchema
 }
 
 /**
+ * Indicates whether the user is missing from the request.
+ * @param req - Request object with Zodios context.
+ * @returns True if the user is missing, otherwise false.
+ */
+export const userAuthMissing = (req: WithZodiosContext<Request, typeof contextSchema>) => {
+	return req.user === null || req.user === undefined || req.user.id === null || req.user.id === undefined
+}
+
+/**
  * Handle user authentication and attach user data to the request with the user middleware.
  *
  * Retrieves the user token from the request headers and validates it.
@@ -37,10 +46,17 @@ const getUserToken = async (req: WithZodiosContext<Request, typeof contextSchema
  */
 const userMiddleware: ZodiosRouterContextRequestHandler<typeof contextSchema> = async (req, res, next) => {
 	const userToken = await getUserToken(req)
-	contextSchema
+
+	// Wait until token has been parsed, then forward to the next request
+	await contextSchema
 		.parseAsync({ user: userToken !== null ? userToken.payload : null })
 		.then((result) => {
 			req.user = result.user
+
+			// If the user is not authenticated, set the user to null
+			if (!req.user?.id) {
+				req.user = null
+			}
 		})
 		.catch((error) => {
 			res.status(401).json({ error: error.message })
