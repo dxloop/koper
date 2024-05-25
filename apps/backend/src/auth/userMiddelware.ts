@@ -12,17 +12,26 @@ import { contextSchema } from "./userContext.js"
 const getUserToken = async (req: WithZodiosContext<Request, typeof contextSchema>) => {
 	const authorization = req.headers.authorization
 	if (authorization === undefined) return null
-
+	
 	const token = authorization.split(" ")[1]
 	if (token === undefined) return null
-
+	
 	return decodeAndVerifyToken(token)
-		.then((result) => {
+	.then((result) => {
 			return result
 		})
 		.catch(() => {
 			return null
 		})
+}
+
+/**
+ * Indicates whether the user is missing from the request.
+ * @param req - Request object with Zodios context.
+ * @returns True if the user is missing, otherwise false.
+ */
+export const userAuthMissing = (req: WithZodiosContext<Request, typeof contextSchema>) => { 
+	return req.user === null || req.user === undefined || req.user.id === null || req.user.id === undefined
 }
 
 /**
@@ -37,7 +46,9 @@ const getUserToken = async (req: WithZodiosContext<Request, typeof contextSchema
  */
 const userMiddleware: ZodiosRouterContextRequestHandler<typeof contextSchema> = async (req, res, next) => {
 	const userToken = await getUserToken(req)
-	contextSchema
+
+	// Wait until token has been parsed, then forward to the next request
+	await contextSchema
 		.parseAsync({ user: userToken !== null ? userToken.payload : null })
 		.then((result) => {
 			req.user = result.user

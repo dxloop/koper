@@ -1,4 +1,4 @@
-import { User } from "openapi"
+import { UserUpdate } from "openapi"
 import prisma from "../prisma.js"
 import { FULL_USER } from "../presets/USER.js"
 import { PromiseType } from "../../shared/types.js";
@@ -11,12 +11,13 @@ export type UpdateUser = PromiseType<ReturnType<typeof updateUser>>;
  * @param data - The user data
  * @returns The updated user
  */
-export async function updateUser(data: User) {
+export async function updateUser(data: UserUpdate) {
     return await prisma.user.update({
         where: { id: BigInt(data.id) },
         data: {
             email: data.email,
-            name: data.name
+            name: data.name,
+            password: data.password
         },
         select: FULL_USER
     })

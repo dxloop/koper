@@ -5,6 +5,7 @@ import { notFound } from "../../shared/errors/notFound.js";
 import { rejectWithError } from "../../shared/errors/rejectWithError.js";
 import Handler from "../../zodios/requestHandler.js"
 import { transformUser } from "../../transformers/user.js";
+import { userAuthMissing } from "../../auth/userMiddelware.js";
 
 /**
  * Gets the own user.
@@ -13,10 +14,10 @@ import { transformUser } from "../../transformers/user.js";
  * @param res - The Express response object.
  */
 const getSelf: Handler<"get", "/users/@me"> = async (req, res) => {
-    if (!req.user) return rejectWithError(res, notAuthenticated());
+    if (userAuthMissing(req)) return rejectWithError(res, notAuthenticated());
 
     // Get the user
-    const user = await getUserWithId(req.user.id).catch(() => {
+    const user = await getUserWithId(req.user!.id).catch(() => {
         return null;
     }); 
 

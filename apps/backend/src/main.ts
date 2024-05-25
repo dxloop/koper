@@ -20,14 +20,14 @@ const app = context.app(zodiosApiInterface, {
 	validate: true
 })
 
+app.use(userMiddleware)
+
 // ##############################
 // ### DISABLE ON PRODUCTION ####
 app.use(cors()) // Temporarily allow cors
 // @ts-expect-error @typescript-eslint/no-unsafe-assignment
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(openapiSpec))
 // ##############################
-
-app.use(userMiddleware)
 
 // Temporarily register controllers
 app.post("/users/register", registerUser)
