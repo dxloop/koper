@@ -1,10 +1,10 @@
 import { UserRegistration } from "openapi"
 import prisma from "../prisma.js"
 import { FULL_USER } from "../presets/USER.js"
-import { PromiseType } from "../../shared/types.js";
+import { PromiseType } from "../../shared/types.js"
 
 /* The type of the created user based on the selected properties */
-export type CreateUser = PromiseType<ReturnType<typeof createUser>>;
+export type CreateUser = PromiseType<ReturnType<typeof createUser>>
 
 /**
  * Creates the new user with the provided data

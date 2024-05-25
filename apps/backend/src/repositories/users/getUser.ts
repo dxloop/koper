@@ -3,7 +3,7 @@ import { FULL_USER } from "../presets/USER.js"
 import { PromiseType } from "../../shared/types.js"
 
 /* The type of the user based on the selected properties */
-export type GetUser = PromiseType<ReturnType<(typeof getUserWithId | typeof getUserWithEmail)>>;
+export type GetUser = PromiseType<ReturnType<typeof getUserWithId | typeof getUserWithEmail>>
 
 /**
  * Gets the user with the provided id
@@ -11,12 +11,12 @@ export type GetUser = PromiseType<ReturnType<(typeof getUserWithId | typeof getU
  * @returns The user
  */
 export async function getUserWithId(userId: string | bigint) {
-    return await prisma.user.findUnique({
-        select: FULL_USER,
-        where: {
-            id: BigInt(userId)
-        }
-    })
+	return await prisma.user.findUnique({
+		select: FULL_USER,
+		where: {
+			id: BigInt(userId)
+		}
+	})
 }
 
 /**
@@ -25,12 +25,10 @@ export async function getUserWithId(userId: string | bigint) {
  * @returns The user
  */
 export async function getUserWithEmail(email: string) {
-    return await prisma.user.findUnique({
-        select: FULL_USER,
-        where: {
-            email
-        }
-    })
+	return await prisma.user.findUnique({
+		select: FULL_USER,
+		where: {
+			email
+		}
+	})
 }
-
-

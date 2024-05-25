@@ -33,7 +33,7 @@ const registerUser: Handler<"post", "/users/register"> = async (req, res) => {
 	}
 
 	// Create User
-	const createdUser = await createUser({...req.body, password: hashedPassword}).catch(() => null)
+	const createdUser = await createUser({ ...req.body, password: hashedPassword }).catch(() => null)
 	if (createdUser === null) {
 		return rejectWithError(res, internalError(restActions.Create, restResources.User, "Could not create user"))
 	}

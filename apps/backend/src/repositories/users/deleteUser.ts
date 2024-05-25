@@ -6,9 +6,9 @@ import prisma from "../prisma.js"
  * @returns The deleted user
  */
 export async function deleteUserWithId(userId: string | bigint) {
-    return await prisma.user.delete({
-        where: {
-            id: BigInt(userId)
-        }
-    })
+	return await prisma.user.delete({
+		where: {
+			id: BigInt(userId)
+		}
+	})
 }

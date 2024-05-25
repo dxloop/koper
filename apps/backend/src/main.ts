@@ -36,5 +36,4 @@ app.get("/users/@me", getSelf)
 app.put("/users/@me", updateSelf)
 app.delete("/users/@me", deleteSelf)
 
-
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`))
