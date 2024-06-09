@@ -1,0 +1,9 @@
+.textInput label {
+    padding-bottom: 0.5rem;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
