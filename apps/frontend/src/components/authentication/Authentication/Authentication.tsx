@@ -85,6 +85,8 @@ export function AuthenticationForm(props: PaperProps) {
 
          await useRegister.mutateAsync({ ...form.values }).then((res) => {
             setJWT(res.token);
+            QueryClient().refetchQueries(); // Refetch queries, since user changed
+            nav('/');
          }).catch((err: ServiceError) => {
             setErrorMessage(err.message ?? 'Something went wrong');
          });

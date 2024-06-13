@@ -1,0 +1,59 @@
+.body  {
+    width: 100%;
+    padding: 15px 22px;
+    display: flex;
+    flex-direction: column;
+    @media (max-width: $mantine-breakpoint-xs) {
+        border-color: transparent;
+        padding-left: 5px;
+        padding-right: 5px;
+        padding-top: 0px;
+    }
+}
+
+.form {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.textInput {
+    min-width: 400px;
+    flex-grow: 1;
+
+    @media (max-width: $mantine-breakpoint-md) {
+        min-width: 200px;
+    }
+
+    @media (max-width: $mantine-breakpoint-xs) {
+        min-width: unset;
+        width: 100%;
+    }
+}
+
+.textInput label {
+    padding-bottom: 0.5rem;
+}
+
+.buttonRow {
+    @media (max-width: $mantine-breakpoint-xs) {
+        padding-top: 1rem;
+    }
+}
+
+.actionButton {
+    width: 150px;
+    @media (max-width: $mantine-breakpoint-sm) {
+        flex-grow: 1;
+    }
+}
+
+.deleteAccount {
+    align-self: center;
+    text-align: start;
+    padding-right: 1rem;
+    @media (max-width: $mantine-breakpoint-md) {
+       width: 100%;
+    }
+}
