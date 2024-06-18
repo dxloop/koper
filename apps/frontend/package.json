@@ -21,6 +21,7 @@
     "@mantine/core": "7.4.2",
     "@mantine/form": "^7.5.0",
     "@mantine/hooks": "7.4.2",
+    "@mantine/notifications": "^7.4.2",
     "@tabler/icons-react": "^2.47.0",
     "openapi": "*",
     "react": "^18.2.0",

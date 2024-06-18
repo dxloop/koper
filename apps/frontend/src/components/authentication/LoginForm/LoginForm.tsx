@@ -31,7 +31,7 @@ export function LoginForm(
                         required
                         label="Email"
                         aria-label="Email"
-                        placeholder="test@spendsmart.com"
+                        placeholder="test@example.com"
                         className={classes.textInput}
                         radius="md"
                         leftSection={<IconAt size={18} />}
@@ -49,7 +49,7 @@ export function LoginForm(
                         {...form.getInputProps('password')}
                     />
                 </Stack>
-                <Stack align="start" justify="space-between" mt="xs" pb="xl" gap="xs">
+                <Stack align="start" justify="space-between" mt="xs" pb={0} gap="xs">
                     {submitComponent}
                 </Stack>
             </form>

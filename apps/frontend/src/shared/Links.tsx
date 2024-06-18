@@ -1,4 +1,4 @@
-import { IconHome, IconFilePlus } from '@tabler/icons-react';
+import { IconHome, IconFilePlus, IconSettings } from '@tabler/icons-react';
 
 /**
  * List of links that will be displayed in the sidebar.
@@ -6,6 +6,7 @@ import { IconHome, IconFilePlus } from '@tabler/icons-react';
 export const RouterLinks = [
   { link: '/', label: 'Home', icon: IconHome },
   { link: '/todos', label: 'Manage Todos', icon: IconFilePlus },
+  {link: '/settings', label: 'Settings', icon: IconSettings},
 ];
 
 /**

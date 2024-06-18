@@ -1,14 +1,20 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Stack, AppShell, Text } from '@mantine/core';
+import { Stack, AppShell, Text, Menu, rem } from '@mantine/core';
 import { RouterLinks, getLabelFromLocation } from '../../../shared/Links';
 import classes from './Sidebar.module.css';
+import { useContext } from 'react';
+import { UserContext } from '@/context/UserContext';
+import { LoggedInUser } from '@/components/shared/LoggedInUser/LoggedInUser';
+import { IconLogout } from '@tabler/icons-react';
 
 /**
  * The Sidebar component, which displays the navigation links and the user's information.
  * @param props - The props for the Sidebar component, which contains the logOut function.
  * @returns The sidebar navigation component.
  */
-export function SideBar() {
+export function SideBar(props: { logOut: () => void }) {
+  const { user } = useContext(UserContext);
+
   const location = useLocation();
 
   const links = RouterLinks.map((item) => (
@@ -35,11 +41,11 @@ export function SideBar() {
           {links}
         </Stack>
       </div>
-
-   {/*    <div aria-label="User actions" role="contentinfo" className={classes.footer}>
+      { /* Sidebar footer */}
+      <div aria-label="User actions" role="contentinfo" className={classes.footer}>
         <Menu shadow="md" width={250}>
           <Menu.Target>
-            <UserButton name={user.displayName} image="" email={user.email} />
+            <LoggedInUser name={user.name} email={user.email} />
           </Menu.Target>
           <Menu.Dropdown>
             <Menu.Item
@@ -52,7 +58,7 @@ export function SideBar() {
             </Menu.Item>
           </Menu.Dropdown>
         </Menu>
-      </div> */}
+      </div>
     </AppShell.Navbar>
   );
 }
