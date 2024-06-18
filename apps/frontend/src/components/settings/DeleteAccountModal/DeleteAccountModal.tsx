@@ -3,7 +3,7 @@ import { notifications } from '@mantine/notifications';
 import { IconCheck, IconX } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
-import { useDeleteSelfUser } from 'openapi';
+import { ServiceError, useDeleteSelfUser } from 'openapi';
 import { removeJWT } from '@/services/util/Auth';
 
 /**
@@ -36,30 +36,31 @@ export function DeleteAccountModal({ opened, close, userId }: DeleteAccountTypes
     const nav = useNavigate();
     const queryClient = useQueryClient();
 
+    const { mutateAsync, isPending } = useDeleteSelfUser();
+
 
     const onDelete = async () => {
-        // @Todo: Implement delete account mutation
-        //useDeleteSelfUser();
-        notifications.show({
-            title: 'Deleted Account',
-            message:
-                'Your account has been scheduled for deletion. You will receive an email shortly.',
-            color: 'green',
-            icon: checkIcon,
-        });
-        queryClient.clear();
-        removeJWT();
-        nav('/login');
-        close();
-        /*   .catch((err: ServiceError) => {
-             notifications.show({
+        mutateAsync(undefined as never).then(() => {
+            notifications.show({
+                title: 'Deleted Account',
+                message:
+                    'Your account has been scheduled for deletion. You will receive an email shortly.',
+                color: 'green',
+                icon: checkIcon,
+            });
+            queryClient.clear();
+            removeJWT();
+            nav('/login');
+            close();
+        }).catch((err: ServiceError) => {
+            notifications.show({
                 title: 'Could not delete account',
                 message:
-                   err.details ?? err.message ?? 'Something went wrong while deleting your account',
+                    err.details ?? err.message ?? 'Something went wrong while deleting your account',
                 color: 'red',
                 icon: crossIcon,
-             });
-          }); */
+            });
+        });
     };
 
     return (
@@ -78,6 +79,7 @@ export function DeleteAccountModal({ opened, close, userId }: DeleteAccountTypes
                     <Button
                         aria-label="cancel delete"
                         variant="light"
+                        disabled={isPending}
                         onClick={close}
                     >
                         Cancel
@@ -85,6 +87,8 @@ export function DeleteAccountModal({ opened, close, userId }: DeleteAccountTypes
                     <Button
                         aria-label="delete account"
                         color="red"
+                        disabled={isPending}
+                        loading={isPending}
                         onClick={onDelete}
                     >
                         Delete Account
