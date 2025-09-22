@@ -5,9 +5,9 @@ import { UserSettings } from '../components/settings/UserSettings/UserSettings';
  * @returns JSX element
  */
 export function SettingsPage() {
-    return (
-        <>
-            <UserSettings />
-        </>
-    );
+  return (
+    <>
+      <UserSettings />
+    </>
+  );
 }

@@ -25,12 +25,16 @@ const getUserToken = async (req: WithZodiosContext<Request, typeof contextSchema
 		})
 }
 
+type NullableReqWithUser = {
+	user: { id: string | null | bigint } | null | undefined
+}
+
 /**
  * Indicates whether the user is missing from the request.
  * @param req - Request object with Zodios context.
  * @returns True if the user is missing, otherwise false.
  */
-export const userAuthMissing = (req: WithZodiosContext<Request, typeof contextSchema>) => {
+export const userAuthMissing = (req: WithZodiosContext<Request, typeof contextSchema> | NullableReqWithUser) => {
 	return req.user === null || req.user === undefined || req.user.id === null || req.user.id === undefined
 }
 

@@ -1,4 +1,4 @@
 module.exports = {
   root: true,
-  extends: ["eslint-config/frontend"],
+  extends: ["eslint-config-custom/frontend"],
 }

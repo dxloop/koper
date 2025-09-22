@@ -11,48 +11,51 @@ import classes from './LoginForm.module.css';
  * @param submitComponent - Component to appear as the submit button.
  * @returns JSX element representing a login form.
  */
-export function LoginForm(
-    { errorMessage, form, handleAuthentication, submitComponent,
-    }: AuthenticationFormProps) {
-    return (
-        <>
-            <Title order={3} mb="xs">
-                Welcome
-            </Title>
-            {
-                errorMessage && <Blockquote my="xs" p="xs" radius="md" color="red">
-                    {errorMessage}
-                </Blockquote>
-            }
+export function LoginForm({
+  errorMessage,
+  form,
+  handleAuthentication,
+  submitComponent,
+}: AuthenticationFormProps) {
+  return (
+    <>
+      <Title order={3} mb="xs">
+        Welcome
+      </Title>
+      {errorMessage && (
+        <Blockquote my="xs" p="xs" radius="md" color="red">
+          {errorMessage}
+        </Blockquote>
+      )}
 
-            <form className={classes.form} onSubmit={form.onSubmit(() => handleAuthentication())}>
-                <Stack gap={0}>
-                    <TextInput
-                        required
-                        label="Email"
-                        aria-label="Email"
-                        placeholder="test@example.com"
-                        className={classes.textInput}
-                        radius="md"
-                        leftSection={<IconAt size={18} />}
-                        {...form.getInputProps('email')}
-                    />
+      <form className={classes.form} onSubmit={form.onSubmit(() => handleAuthentication())}>
+        <Stack gap={0}>
+          <TextInput
+            required
+            label="Email"
+            aria-label="Email"
+            placeholder="test@example.com"
+            className={classes.textInput}
+            radius="md"
+            leftSection={<IconAt size={18} />}
+            {...form.getInputProps('email')}
+          />
 
-                    <PasswordInput
-                        required
-                        label="Password"
-                        aria-label="Password"
-                        placeholder="Your password"
-                        className={classes.textInput}
-                        radius="md"
-                        leftSection={<IconLock size={18} />}
-                        {...form.getInputProps('password')}
-                    />
-                </Stack>
-                <Stack align="start" justify="space-between" mt="xs" pb={0} gap="xs">
-                    {submitComponent}
-                </Stack>
-            </form>
-        </>
-    );
+          <PasswordInput
+            required
+            label="Password"
+            aria-label="Password"
+            placeholder="Your password"
+            className={classes.textInput}
+            radius="md"
+            leftSection={<IconLock size={18} />}
+            {...form.getInputProps('password')}
+          />
+        </Stack>
+        <Stack align="start" justify="space-between" mt="xs" pb={0} gap="xs">
+          {submitComponent}
+        </Stack>
+      </form>
+    </>
+  );
 }

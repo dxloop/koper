@@ -53,15 +53,15 @@ export function Header(props: HeaderProps) {
               <a className={classes.locationName}>{locationName}</a>
             </Group>
           </Group>
-            <ActionIcon
-              variant="default"
-              size="lg"
-              aria-label="Switch theme"
-              onClick={() => setColorScheme(colorScheme === 'dark' ? 'light' : 'dark')}
-            >
-              {colorScheme === 'dark' && <IconSun style={{ width: rem(22), height: rem(22) }} />}
-              {colorScheme === 'light' && <IconMoon style={{ width: rem(22), height: rem(22) }} />}
-            </ActionIcon>
+          <ActionIcon
+            variant="default"
+            size="lg"
+            aria-label="Switch theme"
+            onClick={() => setColorScheme(colorScheme === 'dark' ? 'light' : 'dark')}
+          >
+            {colorScheme === 'dark' && <IconSun style={{ width: rem(22), height: rem(22) }} />}
+            {colorScheme === 'light' && <IconMoon style={{ width: rem(22), height: rem(22) }} />}
+          </ActionIcon>
         </Group>
       </div>
     </AppShell.Header>

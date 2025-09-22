@@ -15,9 +15,9 @@
 	"author": "",
 	"license": "Apache-2.0",
 	"dependencies": {
-		"@prisma/client": "^5.16.2"
+		"@prisma/client": "^6.16.2"
 	},
 	"devDependencies": {
-		"prisma": "^5.16.2"
+		"prisma": "^6.16.2"
 	}
 }
