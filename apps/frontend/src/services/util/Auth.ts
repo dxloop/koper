@@ -3,7 +3,7 @@
  * @param token The JWT token to be set in the local storage
  */
 export function setJWT(token: string) {
-   localStorage.setItem('token', token);
+  localStorage.setItem('token', token);
 }
 
 /**
@@ -11,12 +11,12 @@ export function setJWT(token: string) {
  * @returns JWT token from the local storage
  */
 export function getJWT() {
-   return localStorage.getItem('token');
+  return localStorage.getItem('token');
 }
 
 /**
  * Removes the JWT token from the local storage
  */
 export function removeJWT() {
-   localStorage.removeItem('token');
+  localStorage.removeItem('token');
 }

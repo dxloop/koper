@@ -9,11 +9,9 @@ import classes from './Background.module.css';
  * @returns The background of the application.
  */
 export function Background({ children }: { children: ReactNode }) {
-    return (
-        <AppShell
-          padding={{ base: 0, md: 'md', lg: 'md' }}
-        >
-            <AppShell.Main className={classes.body}>{children}</AppShell.Main>
-        </AppShell>
-    );
+  return (
+    <AppShell padding={{ base: 0, md: 'md', lg: 'md' }}>
+      <AppShell.Main className={classes.body}>{children}</AppShell.Main>
+    </AppShell>
+  );
 }

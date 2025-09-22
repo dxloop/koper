@@ -14,6 +14,13 @@ import updateSelf from "./controllers/users/updateSelf.js"
 import deleteSelf from "./controllers/users/deleteSelf.js"
 import authenticateUser from "./controllers/users/authenticateUser.js"
 
+// Todo controllers
+import getUserTodosController from "./controllers/todos/getUserTodos.js"
+import createUserTodoController from "./controllers/todos/createUserTodo.js"
+import getUserTodoController from "./controllers/todos/getUserTodo.js"
+import updateUserTodoController from "./controllers/todos/updateUserTodo.js"
+import deleteUserTodoController from "./controllers/todos/deleteUserTodo.js"
+
 // Load the api interface from the generated file
 const app = context.app(zodiosApiInterface, {
 	express: express(),
@@ -29,11 +36,18 @@ app.use(cors()) // Temporarily allow cors
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(openapiSpec))
 // ##############################
 
-// Temporarily register controllers
+// User routes
 app.post("/users/register", registerUser)
 app.post("/users/login", authenticateUser)
 app.get("/users/@me", getSelf)
 app.put("/users/@me", updateSelf)
 app.delete("/users/@me", deleteSelf)
+
+// Todo routes
+app.get("/users/:userId/todos", getUserTodosController)
+app.post("/users/:userId/todos", createUserTodoController)
+app.get("/users/:userId/todos/:id", getUserTodoController)
+app.put("/users/:userId/todos/:id", updateUserTodoController)
+app.delete("/users/:userId/todos/:id", deleteUserTodoController)
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`))

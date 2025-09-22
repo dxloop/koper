@@ -1,11 +1,11 @@
 import { Link, useLocation } from 'react-router-dom';
 import { Stack, AppShell, Text, Menu, rem } from '@mantine/core';
+import { useContext } from 'react';
+import { IconLogout } from '@tabler/icons-react';
 import { RouterLinks, getLabelFromLocation } from '../../../shared/Links';
 import classes from './Sidebar.module.css';
-import { useContext } from 'react';
 import { UserContext } from '@/context/UserContext';
 import { LoggedInUser } from '@/components/shared/LoggedInUser/LoggedInUser';
-import { IconLogout } from '@tabler/icons-react';
 
 /**
  * The Sidebar component, which displays the navigation links and the user's information.
@@ -41,7 +41,7 @@ export function SideBar(props: { logOut: () => void }) {
           {links}
         </Stack>
       </div>
-      { /* Sidebar footer */}
+      {/* Sidebar footer */}
       <div aria-label="User actions" role="contentinfo" className={classes.footer}>
         <Menu shadow="md" width={250}>
           <Menu.Target>

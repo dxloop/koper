@@ -6,11 +6,11 @@ import { Background } from '../components/layout/Background/Background';
  * @returns The authentication page.
  */
 export function AuthenticationPage() {
-    return (
-        <>
-            <Background>
-                <AuthenticationForm />
-            </Background>
-        </>
-    );
+  return (
+    <>
+      <Background>
+        <AuthenticationForm />
+      </Background>
+    </>
+  );
 }

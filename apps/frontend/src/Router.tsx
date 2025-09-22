@@ -7,7 +7,11 @@ import { SettingsPage } from './pages/Settings.page';
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <ProtectedRoute><HomePage /></ProtectedRoute>,
+    element: (
+      <ProtectedRoute>
+        <HomePage />
+      </ProtectedRoute>
+    ),
   },
   {
     path: '/login',
@@ -15,10 +19,18 @@ const router = createBrowserRouter([
   },
   {
     path: '/settings',
-    element: <ProtectedRoute><SettingsPage /></ProtectedRoute>,
-  }
+    element: (
+      <ProtectedRoute>
+        <SettingsPage />
+      </ProtectedRoute>
+    ),
+  },
 ]);
 
+/**
+ * Router component that sets up the application's routing.
+ * @returns The Router component.
+ */
 export function Router() {
   return <RouterProvider router={router} />;
 }
